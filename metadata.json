@@ -1,0 +1,6 @@
+{
+  "name": "Child Malnutrition Impact Estimator",
+  "description": "Understand how changing climate conditions affect food availability and children's nutrition across India with regional insights, scenario modeling, WHO child growth assessment, and practical nutrition guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,496 @@
+Malnutrition Impact Estimator — Complete Project Knowledge and Rebuild Specification
+Provenance & Transparency Notice:
+This specification reconstructs the full knowledge base, scientific framework, historical requirements, mathematical formulations, software architecture, and dataset inventory of the Child Malnutrition Impact Estimator platform.
+Conversation History Status: The earliest conversational exchanges were compacted/summarized in previous turns. The 10 specific user requests preserved in the session compaction record (the UI/UX overhauls, the transition from Methodology to Guide, the integration of platforms like Poshan Atlas, KidsHealth360, Tots360, and NutriScan Kids, the pitch explanations, the Light/Dark mode implementation, the academic report for K J Somaiya Institute of Technology, the 9-slide presentation deck, and the blog kit) have been directly reviewed and reconciled with the active codebase.
+Codebase Status: The current workspace (/src, /data, /utils, /components, /types, /context, package.json, metadata.json) was directly inspected on 2026-10-20. Every formula, threshold, data object, and state profile documented below reflects the true, running application code.
+No Application Modifications: In strict compliance with your instruction, no code, files, or configurations have been altered.
+1. Original Problem Statement and Objectives
+1.1 The Core Problem
+In India, over 60% to 70% of coarse cereals, pulses (dal), and oilseeds are cultivated on rainfed agricultural land lacking perennial canal irrigation. When global climate anomalies occur—specifically the warming of sea surface temperatures in the equatorial Pacific Ocean known as El Niño—atmospheric circulation cells (Walker Circulation) shift, suppressing the Indian Southwest Monsoon (June to September).
+This initiates a cascading vulnerability pipeline:
+Rainfall Deficit & Dry Spells: Rainfed Kharif crops (Tur/Arhar, Moong, Urad, Soyabean, Bajra, Rainfed Paddy) suffer terminal moisture stress, flower drop, and yield reductions up to 25%.
+Agricultural Wage Contraction: Landless agricultural laborers and smallholders experience an immediate collapse in farm employment days and seasonal household earnings.
+Wholesale Food Inflation: Pulse prices surge 20% to 40% in wholesale mandis and retail village markets.
+Dietary Dilution ("Hidden Hunger"): Low-income households spend >60% of their income on food. Facing rising prices, families cut high-protein lentils, dairy, and eggs, substituting them with cheap, calorie-dense starches (plain rice or broken wheat).
+Rapid Pediatric Deterioration: Young children (0–59 months) rapidly deplete muscle mass and subcutaneous fat, sliding from normal nutritional status into Moderate Acute Malnutrition (MAM) or life-threatening Severe Acute Malnutrition (SAM) within 6 to 12 weeks.
+1.2 The Surveillance & Action Gap
+Existing Government Data (NFHS): National Family Health Surveys publish retrospective cross-sectional surveys every 4 to 5 years. They cannot act as an early-warning system during an active drought season.
+Clinical Health Trackers: Traditional pediatric growth apps assess child metrics in an isolated vacuum, completely ignoring local climate shocks, drought declarations, staple pulse inflation, or household ration access.
+Grassroots Usability Gap: Scientific climate models and medical anthropometric guidelines (WHO Z-scores) are locked behind dense statistical jargon that parents, Anganwadi workers, and village panchayats cannot easily interpret.
+1.3 Project Objectives
+Primary Objective: Deliver an accessible, scientifically grounded web platform that maps macro-level El Niño climate shocks down to local child nutritional vulnerability across Indian states, providing real-time WHO anthropometric screening and personalized dietary/clinical action plans.
+Specific Goals:
+Synthesize Multi-Source Data: Combine WHO 2006 growth standards, NFHS-5 district/state baselines, IMD historical monsoon deficit patterns, and ICMR-NIN dietary guidelines into a unified interactive engine.
+Model Compound Vulnerability: Formulate a transparent composite vulnerability index (
+) integrating individual anthropometrics (
+), household dietary security (
+), and regional rainfed climate risk (
+).
+Democratize Pediatric Assessment: Provide an intuitive tool computing Height-for-Age (HAZ), Weight-for-Height (WHZ), Weight-for-Age (WAZ), and Mid-Upper Arm Circumference (MUAC) without requiring users to manually reference lookup tables.
+Empower Grassroots Action: Convert clinical findings into culturally familiar, low-cost dietary solutions inspired by Poshan Atlas, KidsHealth360, and Tots360, differentiating between wasting, stunting, and overnutrition.
+2. Complete Research and Scientific Background
+2.1 The Ocean-to-Plate Mechanism (5-Step Causal Chain)
+The platform models a verified causal chain linking global atmospheric physics to cellular child nutrition:
+code
+Code
+[Oceanic Nino Index (ONI) > +0.5°C]
+               │
+               ▼
+   [Walker Circulation Weakens]
+               │
+               ▼
+[Southwest Monsoon Deficit (-10% to -28% LPA)]
+               │
+               ▼
+[Rainfed Kharif Pulse & Coarse Grain Crop Failure]
+               │
+               ▼
+[Agricultural Daily Wage Contraction + Pulse Inflation (+20% to +42%)]
+               │
+               ▼
+[Household Dietary Diversity Drops (< 5 of 8 WHO Food Groups)]
+               │
+               ▼
+[Child Acute Wasting (WHZ < -2 SD), Stunting (HAZ < -2 SD), or SAM (WHZ < -3 SD)]
+2.2 Historical Empirical Evidence in India
+The application codifies four historical benchmark El Niño drought crises in modern Indian history:
+2002–03 (Super Drought): Oceanic Nino Index peak 
+. All-India monsoon deficit: 
+. Kharif output drop: 
+. Wholesale pulse price spike: 
+. Documented relative wasting surge: 
+. Over 
+ of India's landmass experienced severe drought; 15 states declared agricultural disaster.
+2009–10 (Severe Deficit): ONI peak 
+. All-India monsoon deficit: 
+. Kharif output drop: 
+. Pulse price spike: 
+. Documented wasting surge: 
+. Delayed monsoon onset was followed by 338 drought-declared districts.
+2015–16 (Back-to-Back Droughts): ONI peak 
+. All-India monsoon deficit: 
+ following a deficit in 2014. Tur dal retail prices crossed ₹200/kg. NFHS-4 documented national wasting at 
+.
+2023–24 (Driest August in 122 Years): ONI peak 
+. All-India monsoon deficit: 
+, with August 2023 recording a 
+ nationwide deficit. Rainfed pulse tracts in Maharashtra and Karnataka experienced severe yield cuts, maintaining double-digit pulse inflation into 2024.
+2.3 The "Double Burden" of Malnutrition
+The research acknowledges India's rapid nutrition transition:
+Undernutrition: High rates of stunting (
+) and wasting (
+) persisting among low-income quintiles.
+Overnutrition & Hidden Hunger: Emerging childhood overweight and obesity (
+) driven by ultra-processed foods, where children suffer from micronutrient deficiencies (anaemia 
+) despite high caloric intake.
+3. Previous Requirements and Project Decisions
+From accessible conversation summaries and architectural commits, the project underwent several key design pivots:
+Historical Stage	Previous State	User Directive / Pivot	Rationale & Outcome
+Tab Architecture	"Methodology" tab	Rename to "Guide"; make it a public-facing manual	Users perceived "Methodology" as overly academic and intimidating. "Guide" invites parents and grassroots workers to read.
+Complexity Reduction	Number tags like "17" or "7" next to terms	Remove all arbitrary indexing numbers and dense clinical blocks	Cleaned up UI clutter; replaced raw numbers with visual badges and color-coded status pills.
+Guidance Placement	Guidance isolated in documentation	Dual-place guidance: dedicated "Guide" tab AND dynamic action cards embedded in "Assess a Child"	Parents see immediate recovery instructions directly under their child's calculated Z-scores.
+Platform Inspiration	Academic textbook excerpts	Model layout after Poshan Atlas, KidsHealth360, Tots360, and NutriScan Kids	Replaced medical monologues with age-bracket meal plans, kitchen ingredients (ghee, sattu, moong), and warning signs.
+Theme System	Pure light mode	Add Light and Dark Theme	Provided eye comfort for field health workers in low-light environments while retaining a high-contrast warm-paper aesthetic in light mode.
+Academic Alignment	Ad-hoc presentation	Formal Project-Based Learning (PBL) report and 9-slide deck for K J Somaiya Institute of Technology	Formatted for the Department of Artificial Intelligence and Data Science, University of Mumbai syllabus (2025–26).
+4. Datasets, References, and External Resources
+4.1 Master Dataset Inventory
+Dataset / Source Name	Accessible in Workspace?	File Location	Key Contents	Project Functionality
+WHO Child Growth Standards (2006)	Yes (Embedded Code)	/src/utils/whoGrowthStandards.ts	Median (
+) and Standard Deviation (
+) for Boys & Girls (0–60 months); allometric weight-for-height curves.	Computes HAZ, WHZ, WAZ, and renders multi-percentile growth charts (+2 SD, Median, -2 SD, -3 SD).
+NFHS-5 State Profiles (2019–21)	Yes (Embedded Code)	/src/data/indiaData.ts	Stunting %, Wasting %, Severe Wasting %, Underweight %, Anaemia %, Anganwadi %, PDS access %.	Feeds state-level baselines, regional comparative tables, and state vulnerability weighting.
+IMD Agro-Climatic & Rainfall Sensitivity	Yes (Embedded Code)	/src/data/indiaData.ts	Rainfall sensitivity (1–5 scale), avg El Niño monsoon deficit %, primary crops, rainfed % per state.	Scales the environmental exposure component of the Compound Vulnerability Index.
+ENSO Scenario Matrix (NOAA/CPC ONI)	Yes (Embedded Code)	/src/data/indiaData.ts	5 intensity tiers: Neutral (0.0°C), Weak (+0.6°C), Moderate (+1.2°C), Strong (+1.8°C), Super (+2.4°C).	Drives the interactive homepage slider and projected wasting surge simulator.
+ICMR-NIN Dietary Guidelines (2020)	Yes (Synthesized Rules)	/src/components/GuideSection.tsx	Recommended Dietary Allowances (RDA), 8 WHO food group diversity score, local nutrient-dense foods.	Powers the dietary assessment checklist and age-specific meal plans (6–12m, 1–2y, 2–3y, 3–5y).
+IAP Pediatric Wasting Protocols	Yes (Synthesized Rules)	/src/utils/climateNutritionModel.ts	Clinical triage rules for SAM vs. MAM, bilateral pitting oedema emergency flags, MUAC cutoffs.	Generates clinical recommendations, NRC referral triggers, and danger-sign alerts.
+4.2 State Profiles Coded in the System
+The application houses complete empirical profiles for 14 primary Indian agrarian states across all 6 geographical zones:
+Maharashtra (West): Stunting 
+, Wasting 
+, Severe Wasting 
+, Rainfed 
+, Pulse Risk Severe, Sensitivity 
+.
+Bihar (East): Stunting 
+ (Highest in India), Wasting 
+, Severe Wasting 
+, Rainfed 
+, Sensitivity 
+.
+Madhya Pradesh (Central): Stunting 
+, Wasting 
+, Anaemia 
+, Rainfed 
+, Pulse Risk Severe, Sensitivity 
+.
+Rajasthan (West): Stunting 
+, Wasting 
+, Deficit 
+, Rainfed 
+, Sensitivity 
+.
+Karnataka (South): Stunting 
+, Wasting 
+, Rainfed 
+, Pulse Risk Severe, Sensitivity 
+.
+Uttar Pradesh (North): Stunting 
+, Wasting 
+, Rainfed 
+, Bundelkhand drought risk, Sensitivity 
+.
+Gujarat (West): Stunting 
+, Wasting 
+, Anaemia 
+ (Highest child anaemia), Rainfed 
+.
+Odisha (East): Stunting 
+, Wasting 
+, Rainfed 
+, High Anganwadi coverage (
+).
+Jharkhand (East): Stunting 
+, Wasting 
+, Underweight 
+, Rainfed 
+ (Plateau agriculture).
+Andhra Pradesh (South): Stunting 
+, Wasting 
+, Rainfed 
+, Rayalaseema vulnerability.
+Telangana (South): Stunting 
+, Wasting 
+, Rainfed 
+, Red gram dryland vulnerability.
+Chhattisgarh (Central): Stunting 
+, Wasting 
+, Rainfed 
+, Bastar/Surguja rainfed rice belt.
+Tamil Nadu (South): Stunting 
+, Wasting 
+, Northeast Monsoon buffer, PDS access 
+.
+West Bengal (East): Stunting 
+, Wasting 
+, Rainfed 
+, Purulia/Bankura red-soil sensitivity.
+Punjab (North): Stunting 
+, Wasting 
+, Rainfed 
+ (98%+ canal/tubewell irrigated baseline).
+Haryana (North): Stunting 
+, Wasting 
+, Rainfed 
+.
+Kerala (South): Stunting 
+, Wasting 
+, Anaemia 
+ (Lowest in India), High maternal literacy.
+Assam (Northeast): Stunting 
+, Wasting 
+, Rainfed 
+, Brahmaputra flood/dry spell paradox.
+5. Scientific Methodology, Formulas, and Assumptions
+5.1 WHO 2006 Anthropometric Z-Score Formulations
+Calculated in /src/utils/whoGrowthStandards.ts:
+For Weight-for-Height (
+), expected weight is modeled using gender-calibrated allometric scaling across height (
+):
+Boys: 
+, 
+Girls: 
+, 
+5.2 Diagnostic Cutoffs and Triage Matrix
+Metric	Normal Range	Moderate Deficit (MAM / Alert)	Severe Deficit (SAM / Emergency)	Overnutrition
+WHZ (Wasting)	
+ OR Oedema	
+ (Overweight)
+ (Obese)
+HAZ (Stunting)	
+N/A
+WAZ (Weight)	
+MUAC (
+)	
+ (Green)	
+ (Yellow)	
+ (Red)	N/A
+Bilateral Oedema	Absent	Absent	Present = Immediate SAM	N/A
+5.3 Compound Vulnerability Index (
+)
+Calculated in /src/utils/climateNutritionModel.ts:
+Component 1: Individual Anthropometric Deficit (
+)
+Bilateral Oedema: 
+ (Direct maximum)
+ (SAM): 
+ (MAM): 
+ (Mild Wasting): 
+ (Overnutrition): 
+ (Capped; not acute wasting)
+Chronic Stunting: 
+; 
+; 
+MUAC Confirmation: SAM (
+) 
+; MAM (
+) 
+Subtotal capped at 45.
+Component 2: Household Food Security & Dietary Buffer (
+)
+Dietary Diversity Score (
+):
+ groups: 
+ (Extreme dietary poverty)
+ groups: 
+ groups: 
+ groups: 
+Lack of Anganwadi access: 
+Public Distribution System (Ration Card):
+No ration card (none): 
+Above Poverty Line (apl): 
+BPL / Antyodaya: 
+Subtotal capped at 25.
+Component 3: Regional El Niño Agrarian Exposure (
+)
+Rainfall Sensitivity (
+): 
+Rainfed Agriculture Pct (
+): 
+State Pulse Harvest Risk:
+Severe: 
+High: 
+Moderate: 
+Subtotal capped at 30.
+Special Rule for Childhood Overnutrition
+If the child is overweight or obese (
+), they are not in acute wasting danger:
+Classification Tiers:
+Critical: 
+ OR Bilateral Oedema OR 
+Severe: 
+High: 
+Moderate: 
+Low: 
+5.4 Climate Multiplier Formulation (
+)
+Measures how aggressively a localized climate disruption amplifies the child's baseline vulnerability:
+(For overnutrition, 
+)
+6. Existing Application Features and Functionality
+code
+Code
+┌────────────────────────────────────────────────────────────────────────┐
+│                   Top Navigation Bar (Navbar.tsx)                      │
+│ [Home]   [Regional Climate]   [Assess a Child]   [Guide]   [ThemeToggle]│
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │
+      ┌────────────────────────────┼────────────────────────────┐
+      ▼                            ▼                            ▼
+[HomeSection.tsx]     [RegionalImpactSection.tsx]    [AssessChildSection.tsx]
+- Hero headline       - 14 State cards               - Child demographics
+- 5-Step Causal Chain - 6 Zone filters               - Sliders (Age, Ht, Wt, MUAC)
+- Interactive ONI     - 4 Metric views               - 8 Food groups selector
+  Scenario Slider     - 2-State Compare Mode         - Real-time WHO score banner
+- Historical Droughts - Direct "Assess" handoff      - Tabbed Recovery Playbook
+                                                                │
+                                                                ▼
+                                                    [ImpactResultSection.tsx]
+                                                    - Synthesis Card & Multiplier
+                                                    - SVG WHO Growth Curve Chart
+                                                    - Climate Stress Simulator
+                                                    - 4 Sectoral Action Cards
+                                                    - Print / Clipboard Export
+6.1 Top Navigation Bar (Navbar.tsx)
+Sticky top navigation with active tab highlighting.
+Direct action CTA: "Assess a Child" button.
+Dedicated Theme Toggle Switch (Sun / Moon) persisted in localStorage.
+6.2 Home & Climate Simulator (HomeSection.tsx & HeroSection.tsx)
+Interactive ENSO Slider: Steps through 5 NOAA ONI anomaly scenarios (
+ to 
+), dynamically re-calculating:
+National Monsoon Deficit % (
+ to 
+)
+Kharif Yield Drop % (
+ to 
+)
+Wholesale Pulse Inflation % (
+ to 
+)
+Bottom-Quintile Calorie Intake Dip (
+ to 
+)
+Under-5 Wasting Surge (
+ to 
+)
+Absolute Children at Acute Risk (
+ to 
+)
+The 5-Step Causal Chain: Interactive stepped tab explaining the physics, meteorology, agricultural economics, market inflation, and pediatric physiology.
+Historical Benchmarks: Expandable case studies of 2002–03, 2009–10, 2015–16, and 2023–24.
+6.3 Regional Impact Explorer (RegionalImpactSection.tsx)
+State Directory: Search and browse 14 Indian states filtered by zone (North, Central, West, South, East, Northeast).
+Metric Heatmap Views: Toggle card data between Compound Vulnerability Tier, NFHS-5 Stunting Rate %, NFHS-5 Wasting Rate %, and Average Monsoon Deficit %.
+Side-by-Side Comparison Mode: Select two states simultaneously (e.g., highly vulnerable rainfed Maharashtra vs. heavily canal-irrigated Punjab) to contrast NFHS baselines, irrigation coverage, pulse exposure, and safety net strength.
+Assess State Handoff: One-click button passing the state context directly into the assessment calculator.
+6.4 Child Assessment Calculator (AssessChildSection.tsx)
+Input Controls:
+Child Name (optional, defaults to "Your Child").
+Gender toggle (Boy / Girl).
+Age Slider (
+).
+Height Slider (
+).
+Weight Slider (
+).
+Mid-Upper Arm Circumference (MUAC) Slider (
+).
+Bilateral Pitting Oedema toggle (swollen feet check).
+State of residence dropdown.
+8-Group WHO Minimum Dietary Diversity Checklist.
+Safety Net Toggles: Anganwadi Centre Access & PDS Ration Card category (antyodaya, bpl, apl, none).
+Instant Live Feedback Banner: As sliders move, real-time reactive WHO calculations display Stunting status, Wasting status, Underweight status, and MUAC color classification.
+Embedded Recovery Guide: Automatically syncs to show tailored home kitchen solutions directly below the inputs.
+6.5 Impact Results & Visualization (ImpactResultSection.tsx)
+Vulnerability Synthesis Card: Displays the composite score (
+), tier badge (Low, Moderate, High, Severe, Critical), and Climate Multiplier (
+).
+Dynamic WHO Growth Curve Chart: Scaled SVG vector chart plotting the child's exact coordinate against standard WHO curves:
+ curve (Green dashed - Overweight threshold)
+Median curve (Solid Green - Ideal growth)
+ curve (Amber dashed - Moderate Wasting / MAM)
+ curve (Red solid - Severe Acute Malnutrition / SAM)
+Interactive Climate Scenario Switcher: Toggles the child's forecast across Neutral, Moderate El Niño (
+), and Strong El Niño (
+) to show simulated deterioration.
+4-Column Action Plan:
+Clinical & Medical: NRC referral protocols, danger signs, appetite tests, IFA syrup, deworming.
+Anganwadi & Safety Net: Take-Home Rations (THR/Bal Aahar), Poshan Tracker red-flagging, VHSND attendance.
+Dietary & Kitchen: Caloric density boosting (ghee, roasted groundnut powder, sattu), feeding frequency.
+Household & Water Sanitation: Boiling water protocols during droughts, ORS preparation, PDS grain collection.
+Export Actions: Native browser Print formatting and formatted clipboard report export.
+6.6 The Public Nutrition Guide (GuideSection.tsx)
+Malnutrition Overcoming Playbook: 4 interactive tabs for Underweight/Wasting, Stunted Growth, Overweight/Obesity, and Normal Healthy Growth.
+Poshan Atlas Age-Bracket Feeding Plans:
+6 to 12 months: Introduction of mashed complementary foods, continuing breastfeeding, avoiding cow milk/honey.
+1 to 2 years: Transition to soft family diet, 4–5 small meals daily, energy-dense khichdi.
+2 to 3 years: Active finger foods, curd, sprouts, chewing development.
+3 to 5 years: Pre-school balanced platter, seasonal fruits, eliminating packaged ultra-processed junk.
+Clinical Indicator Reference Table: Simple plain-language glossary explaining HAZ, WHZ, WAZ, MUAC, and Oedema without jargon.
+7. Technology Stack and Architecture
+code
+Code
+┌────────────────────────────┐
+                    │        Vite 8.3.0          │
+                    │   React 19.0.1 + TS 7.0    │
+                    └─────────────┬──────────────┘
+                                  │
+      ┌───────────────────────────┼───────────────────────────┐
+      ▼                           ▼                           ▼
+[Tailwind CSS v4]        [Lucide React Icons]      [Client-Side Engine]
+- Custom dark variant    - Semantic visual cues    - WHO 2006 Math models
+- Modern CSS tokens      - Accessible icons        - State climate data
+- Warm-paper palette                               - LocalStorage theme
+7.1 Dependencies (package.json)
+Core: react: ^19.0.1, react-dom: ^19.0.1, typescript: ^7.0.2
+Build System: vite: ^8.3.0, @vitejs/plugin-react: ^6.1.1
+Styling: tailwindcss: ^4.3.3, @tailwindcss/vite: ^4.3.3, autoprefixer: ^10.4.21
+Icons & Animation: lucide-react: ^0.546.0, motion: ^12.23.24
+Backend Runtime Ready: express: ^4.21.2, dotenv: ^17.2.3, tsx: ^4.21.0
+AI Capabilities (Provisioned in Applet): @google/genai: ^2.4.0
+7.2 Directory Structure
+code
+Code
+/
+├── index.html                   # HTML entry point with metadata
+├── metadata.json                # AI Studio build configuration
+├── package.json                 # Dependencies and npm scripts
+├── src/
+│   ├── App.tsx                  # Master application controller & navigation state
+│   ├── main.tsx                 # React DOM mount point with ThemeProvider
+│   ├── index.css                # Tailwind imports and @custom-variant dark
+│   ├── context/
+│   │   └── ThemeContext.tsx     # Theme state provider (light/dark)
+│   ├── types/
+│   │   └── index.ts             # TypeScript domain interfaces
+│   ├── data/
+│   │   └── indiaData.ts         # 14 States, ENSO scenarios, and historical data
+│   ├── utils/
+│   │   ├── whoGrowthStandards.ts   # WHO Z-scores, LMS curves, and allometry
+│   │   └── climateNutritionModel.ts # Compound Vulnerability Index & Multiplier
+│   └── components/
+│       ├── Navbar.tsx           # Navigation bar with theme toggle
+│       ├── HeroSection.tsx      # Landing hero with headline and badges
+│       ├── HomeSection.tsx      # Platform overview, ENSO slider, causal chain
+│       ├── RegionalImpactSection.tsx # State explorer, filters, compare mode
+│       ├── AssessChildSection.tsx    # Child input form & live status feedback
+│       ├── ImpactResultSection.tsx   # Synthesis card, SVG curve, action plan
+│       ├── GuideSection.tsx     # Poshan Atlas-aligned public feeding guide
+│       ├── MethodologySection.tsx # Legacy reference (fallback)
+│       └── Footer.tsx           # Universal footer with secondary theme switch
+8. Terminology and Indicators
+Term / Abbreviation	Full Name / Expansion	Plain-Language Definition	Clinical Significance
+HAZ	Height-for-Age Z-Score	How tall a child is compared to healthy children of the exact same age and sex.	
+ Stunting (Chronic cumulative malnutrition).
+WHZ	Weight-for-Height Z-Score	How heavy a child is relative to their current height.	
+ MAM; 
+ SAM (Acute wasting).
+WAZ	Weight-for-Age Z-Score	Composite measure of body mass relative to age.	
+ Underweight.
+MUAC	Mid-Upper Arm Circumference	Measurement of the left upper arm muscle and fat using a tri-colored tape.	Red (
+) indicates severe muscle wasting and high mortality risk.
+MAM	Moderate Acute Malnutrition	Moderate wasting requiring energy-dense supplementary feeding.	High risk of sliding into SAM during seasonal food price shocks.
+SAM	Severe Acute Malnutrition	Extreme wasting or oedema; pediatric medical emergency.	Compromised gut and immune function; 
+ elevated mortality risk.
+Bilateral Pitting Oedema	Kwashiorkor Swelling	Fluid retention starting in both feet that leaves an indentation when pressed.	Severe metabolic failure; automatic SAM classification regardless of weight.
+ONI	Oceanic Niño Index	Running 3-month mean sea surface temperature anomaly in the Niño 3.4 Pacific region.	
+ indicates El Niño; 
+ indicates Super El Niño.
+LPA	Long Period Average	50-year average rainfall benchmark tracked by IMD (
+ for Southwest Monsoon).	Deficit 
+ defines an all-India drought year.
+Kharif	Monsoon Cropping Season	Crops sown in June/July and harvested in Oct/Nov (Tur, Soyabean, Paddy, Bajra).	The primary agricultural season disrupted by El Niño droughts.
+RUTF	Ready-to-Use Therapeutic Food	High-energy lipid paste (peanut, milk powder, sugar, vitamins) used to treat SAM.	Standard WHO/UNICEF protocol for outpatient nutritional rehabilitation.
+NRC	Nutrition Rehabilitation Centre	Specialized health facility unit for treating SAM children with medical complications.	Inpatient stabilization protocol using F-75 and F-100 therapeutic milk.
+ICDS / Anganwadi	Integrated Child Development Services	Village-level frontline health centre providing supplementary nutrition and growth tracking.	Administers Take-Home Ration (THR) and updates the national Poshan Tracker.
+9. Data Integrity, Limitations, and Unresolved Questions
+9.1 Documented Assumptions in the Codebase
+Linear Interpolation of WHO Knots: Age-based median and standard deviations are linearly interpolated between 13 discrete age knots (
+) rather than calculating continuous cubic splines.
+Allometric Power Law for WHZ: Expected weight-for-height is approximated using 
+ (
+) with linear standard deviation scaling. While matching WHO tables within 
+ across the 
+ range, it is an empirical approximation rather than the official WHO Box-Cox power exponential (
+) table lookup.
+Static State NFHS-5 Baselines: The 14 state profiles in indiaData.ts use static cross-sectional values from the NFHS-5 survey (2019–21). They do not currently pull live API telemetry from the Poshan Tracker or IMD Mausam portals.
+Rainfed Sensitivity Scaling: The state rainfall sensitivity score (
+) is an engineered composite score based on historical monsoon deviation records rather than an automated satellite soil moisture feed.
+9.2 Known Unresolved Elements from Past Iterations
+22 States & UTs Not Fully Profiled: The code defines 14 primary agrarian states. While the architecture covers all 6 zones, 22 smaller states and Union Territories (e.g., Goa, Sikkim, Ladakh, Andaman) fall back to default or unlisted parameters.
+Offline PWA Caching: While calculations run 
+ client-side, the app has not yet registered a progressive web app service worker (manifest.json / Workbox) for field use without internet connectivity.
+Multilingual Localization: Field workers in rural Anganwadis operate primarily in Hindi, Marathi, Telugu, Kannada, Bengali, and Odia. The interface is currently in English.
+10. Requirements for the Improved Application (Rebuild Roadmap)
+When engineering the next-generation version of this platform, the following architectural and functional enhancements are recommended:
+10.1 Mathematical & Clinical Enhancements
+Full Exact WHO LMS Table Integration: Replace the allometric power-law approximation with the exact WHO 2006 Day-by-Day LMS parameter tables for Weight-for-Length (
+ recumbent) and Weight-for-Height (
+ standing).
+Age-Calibrated Infant Length vs. Height: Implement automatic switching between recumbent length (infantometer) for children 
+ and standing height (stadiometer) for children 
+ (applying the official 
+ conversion offset).
+Dynamic Z-Score Percentile Export: Allow exporting clinical growth cards directly into standard Indian Academy of Pediatrics (IAP) health booklet formats.
+10.2 Climate & Data Ingestion
+Expanded 36 States & UT Coverage: Expand indiaData.ts to include all 28 States and 8 Union Territories with verified NFHS-5 district disaggregations.
+Live Environmental API Integrations:
+Integrate NOAA Climate Prediction Center (CPC) RSS/JSON for live Oceanic Niño Index anomalies.
+Connect Open-Meteo or IMD API for real-time 30-day cumulative rainfall deficits by district pin-code.
+Crop-Specific Vulnerability Matrices: Disaggregate vulnerability based on whether the specific district cultivates Pigeon Pea (Tur), Pearl Millet (Bajra), Soybean, or Rainfed Rice.
+10.3 User Experience & Field Accessibility
+Multilingual Localization (i18n): Implement full language support for Hindi, Marathi, Gujarati, Telugu, Kannada, Odia, and Bengali.
+Progressive Web App (PWA) Offline Operation: Add a service worker allowing full assessment calculation in remote tribal hamlets without cell coverage.
+Camera-Based MUAC & Scale Verification (Optional ML): Utilize mobile camera input to assist frontline ASHA workers in reading MUAC tape color boundaries accurately.
+Community Health Worker (ASHA/AWW) Cohort Dashboard: Add a secure local storage mode enabling a field worker to track and review a registry of 20–50 village children across monthly visits.
+(This document contains the complete, unredacted knowledge inventory and technical specification required to rebuild, extend, or pitch the Child Malnutrition Impact Estimator.)
